@@ -1,0 +1,16 @@
+.toggleButton {
+  cursor: pointer;
+
+  &.inactive:hover {
+    background-color: rgb(194, 193, 193);
+  }
+}
+
+.trashIcon {
+  color: #b2b2b2;
+
+  &:hover {
+    cursor: pointer;
+    color: tomato;
+  }
+}

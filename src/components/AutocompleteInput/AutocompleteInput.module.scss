@@ -1,3 +1,7 @@
+.autocompleteInput {
+  position: relative;
+}
+
 .autocompleteOption {
   cursor: pointer;
   border-radius: 3px;
@@ -11,4 +15,14 @@
 
 .autocompleteOptionText {
   padding: 5px 10px;
+}
+
+.autocompleteList {
+  position: absolute;
+  width: 400px;
+  background-color: white;
+  z-index: 20;
+  border: 1px solid rgb(216, 216, 216);
+  border-radius: 5px;
+  padding: 20px;
 }

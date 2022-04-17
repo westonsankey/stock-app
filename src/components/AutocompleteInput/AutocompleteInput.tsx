@@ -50,7 +50,7 @@ const AutocompleteList: React.FC<TAutocompleteListProps> = ({
         });
 
   return (
-    <div>
+    <Box className={styles.autocompleteList}>
       {filteredOptions.slice(0, 7).map((o) => {
         return (
           <AutocompleteOption
@@ -61,7 +61,7 @@ const AutocompleteList: React.FC<TAutocompleteListProps> = ({
           />
         );
       })}
-    </div>
+    </Box>
   );
 };
 
@@ -96,14 +96,16 @@ export const AutocompleteInput: React.FC<TAutocompleteInputProps> = ({
   };
 
   return (
-    <Box>
+    <Box className={styles.autocompleteInput}>
       <Input onChange={(e) => setSymbol(e.target.value)} value={symbol} />
-      <AutocompleteList
-        selectedStock={selectedStock}
-        setSelectedStock={handleSelectFromList}
-        options={parsedStockOptions}
-        currentValue={symbol}
-      />
+      {symbol !== "" && symbol !== selectedStock && (
+        <AutocompleteList
+          selectedStock={selectedStock}
+          setSelectedStock={handleSelectFromList}
+          options={parsedStockOptions}
+          currentValue={symbol}
+        />
+      )}
     </Box>
   );
 };

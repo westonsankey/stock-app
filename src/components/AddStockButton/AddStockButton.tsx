@@ -12,6 +12,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { AutocompleteInput } from "../AutocompleteInput";
 import styles from "./AddStockButton.module.scss";
 
 type TAddStockButton = {
@@ -43,12 +44,7 @@ export const AddStockButton: React.FC<TAddStockButton> = ({
           <ModalHeader>Add a Stock</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Input
-              placeholder="Ticker Symbol"
-              size="md"
-              onChange={(e) => setSymbol(e.target.value)}
-              value={symbol}
-            />
+            <AutocompleteInput symbol={symbol} setSymbol={setSymbol} />
           </ModalBody>
 
           <ModalFooter>

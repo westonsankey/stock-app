@@ -1,0 +1,14 @@
+.autocompleteOption {
+  cursor: pointer;
+  border-radius: 3px;
+  margin-top: 5px;
+
+  &:hover {
+    color: #7673ff;
+    background-color: rgb(229, 229, 229);
+  }
+}
+
+.autocompleteOptionText {
+  padding: 5px 10px;
+}

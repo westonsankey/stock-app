@@ -27,6 +27,8 @@ export type TStockData = {
   revenueGrowth: number;
   grossProfit: string;
   history: TStockHistory;
+  lastRefreshTs: number;
+  isDisplayed: boolean;
 };
 
 export type CardWidget = "QUOTE" | "CHART" | "INFO";

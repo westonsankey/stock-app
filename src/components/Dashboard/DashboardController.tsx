@@ -7,7 +7,6 @@ import { DateTime } from "luxon";
 
 const timestampToDate = (timestamp: number) => {
   const date = DateTime.fromMillis(timestamp * 1000);
-
   return `${date.monthShort} ${date.day}, ${date.year}`;
 };
 
@@ -21,9 +20,26 @@ const transformHistory = (
 };
 
 const getStockData = async (symbol: string) => {
+  const apiKey = process.env.REACT_APP_YAHOO_FINANCE_API_KEY;
+
+  if (!apiKey) {
+    throw Error("No API key");
+  }
+
   const response = await axios.get(
-    `https://yfapi.net/v11/finance/quoteSummary/${symbol}`
+    `https://yfapi.net/v11/finance/quoteSummary/${symbol}`,
+    {
+      headers: {
+        "X-API-KEY": apiKey,
+      },
+      params: {
+        modules:
+          "defaultKeyStatistics,summaryDetail,price,assetProfile,financialData",
+      },
+    }
   );
+
+  console.log("response:", response);
 
   const data: TStockData = {
     companyName: response.data.quoteSummary.result[0].price.shortName,
@@ -42,6 +58,8 @@ const getStockData = async (symbol: string) => {
     totalRevenue:
       response.data.quoteSummary.result[0].financialData.totalRevenue.fmt,
     history: transformHistory("AAPL", mockHistory),
+    lastRefreshTs: DateTime.now().millisecond,
+    isDisplayed: true,
   };
 
   return data;
@@ -62,12 +80,17 @@ export const DashboardController = () => {
       return prev.filter((s) => s !== symbol);
     });
 
-    const filteredStockData: Record<string, TStockData> = {};
-    Object.entries(stockData).forEach(([k, v]) => {
-      if (k !== symbol) filteredStockData[k] = v;
-    });
+    setStockData((prev) => {
+      const currentValue = prev[symbol];
 
-    setStockData(filteredStockData);
+      return {
+        ...prev,
+        [symbol]: {
+          ...currentValue,
+          isDisplayed: false,
+        },
+      };
+    });
   };
 
   // TODO: refactor into hook

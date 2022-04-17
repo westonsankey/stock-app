@@ -14,3 +14,9 @@
     color: tomato;
   }
 }
+
+.cardHeader {
+  &:hover {
+    cursor: pointer;
+  }
+}

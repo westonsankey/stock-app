@@ -1,4 +1,5 @@
 import { Box, Flex } from "@chakra-ui/layout";
+import { useDisclosure } from "@chakra-ui/react";
 import { AddStockButton } from "../AddStockButton";
 import { StockCardController, TStockData } from "../StockCard";
 

@@ -1,14 +1,16 @@
 import { Box, Flex, Text } from "@chakra-ui/layout";
 import { CardWidget, TStockData } from "./types";
-import styles from "./StockCard.module.scss";
 import { Quote } from "./components/Quote";
 import { useState } from "react";
 import { Info } from "./components/Info";
 import { Chart } from "./components/Chart";
+import styles from "./StockCard.module.scss";
 import classNames from "classnames";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { useDisclosure } from "@chakra-ui/react";
+import { StockDrawer } from "../StockDrawer";
 
 type TStockCardViewProps = {
   data: TStockData;
@@ -116,6 +118,7 @@ export const StockCardView: React.FC<TStockCardViewProps> = ({
   removeStock,
 }: TStockCardViewProps) => {
   const [widget, setWidget] = useState<CardWidget>("QUOTE");
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const WidgetComponent = getWidgetComponent(widget, data);
 
   return (
@@ -123,10 +126,14 @@ export const StockCardView: React.FC<TStockCardViewProps> = ({
       m="20px"
       w="350px"
       h="300px"
-      border="1px solid #717171"
       borderRadius="5px"
+      boxShadow="rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;"
     >
-      <Flex justify="space-between">
+      <Flex
+        className={styles.cardHeader}
+        justify="space-between"
+        onClick={onOpen}
+      >
         <Text fontSize="2xl" ml="15px" mt="10px">
           {data.ticker} - {data.companyName}
         </Text>
@@ -144,6 +151,8 @@ export const StockCardView: React.FC<TStockCardViewProps> = ({
       <Flex justifyContent="center" w="100%">
         <StockCardToggle currentActiveWidget={widget} setWidget={setWidget} />
       </Flex>
+
+      <StockDrawer isOpen={isOpen} onClose={onClose} data={data} />
     </Box>
   );
 };

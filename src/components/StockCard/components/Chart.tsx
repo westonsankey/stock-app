@@ -32,7 +32,7 @@ export const Chart: React.FC<TChartProps> = ({ history }: TChartProps) => (
       axisLeft={null}
       enableGridX={false}
       enableGridY={false}
-      colors={() => "#ff7673"}
+      colors={() => "#FF9575"}
       lineWidth={3}
       enablePoints={false}
       pointSize={10}

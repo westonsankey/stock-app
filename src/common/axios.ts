@@ -5,6 +5,7 @@ import {
   mockGoogleResponse,
   mockSnapResponse,
   mockTwitterResponse,
+  mockAppleSimilarStocksResponse,
 } from "../mock/index.mock";
 
 if (process.env.REACT_APP_USE_MOCK_API === "true") {
@@ -25,6 +26,10 @@ if (process.env.REACT_APP_USE_MOCK_API === "true") {
   mockAdapter
     .onGet("https://yfapi.net/v11/finance/quoteSummary/TWTR")
     .reply(200, mockTwitterResponse);
+
+  mockAdapter
+    .onGet("https://yfapi.net/v6/finance/recommendationsbysymbol/AAPL")
+    .reply(200, mockAppleSimilarStocksResponse);
 }
 
 export default axios;

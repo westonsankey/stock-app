@@ -19,14 +19,6 @@ export const NavBar = () => {
         >
           Favorites
         </Text>
-        <Text
-          className={styles.navLink}
-          color="#FFF"
-          fontSize="medium"
-          fontWeight="bold"
-        >
-          Chart
-        </Text>
       </Flex>
     </Box>
   );

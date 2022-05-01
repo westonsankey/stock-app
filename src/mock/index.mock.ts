@@ -3109,3 +3109,36 @@ export const mockTwitterResponse = {
     error: null,
   },
 };
+
+export const mockAppleSimilarStocksResponse = {
+  finance: {
+    error: null,
+    result: [
+      {
+        recommendedSymbols: [
+          {
+            score: 0.284219,
+            symbol: "AMZN",
+          },
+          {
+            score: 0.277092,
+            symbol: "GOOG",
+          },
+          {
+            score: 0.276136,
+            symbol: "FB",
+          },
+          {
+            score: 0.248035,
+            symbol: "TSLA",
+          },
+          {
+            score: 0.208809,
+            symbol: "NFLX",
+          },
+        ],
+        symbol: "AAPL",
+      },
+    ],
+  },
+};

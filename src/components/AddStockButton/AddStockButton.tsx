@@ -13,7 +13,6 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { AutocompleteInput } from "../AutocompleteInput";
-import styles from "./AddStockButton.module.scss";
 
 type TAddStockButton = {
   addStock: (symbol: string) => void;
@@ -27,16 +26,9 @@ export const AddStockButton: React.FC<TAddStockButton> = ({
 
   return (
     <>
-      <Box
-        className={styles.button}
-        background="#8c8c8c"
-        color="white"
-        p="5px 10px"
-        borderRadius="5px"
-        onClick={onOpen}
-      >
+      <Button bg="secondary" color="white" onClick={onOpen}>
         Add Stock
-      </Box>
+      </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -53,7 +45,7 @@ export const AddStockButton: React.FC<TAddStockButton> = ({
             </Button>
             <Button
               size="sm"
-              backgroundColor="#018c11"
+              bg="secondary"
               color="#FFF"
               onClick={() => {
                 addStock(symbol);

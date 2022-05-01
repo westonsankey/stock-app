@@ -14,6 +14,7 @@ import { StockDrawer } from "../StockDrawer";
 
 type TStockCardViewProps = {
   data: TStockData;
+  addStock: (symbol: string) => void;
   removeStock: (symbol: string) => void;
 };
 
@@ -115,14 +116,16 @@ const getWidgetComponent = (widget: CardWidget, data: TStockData) => {
 
 export const StockCardView: React.FC<TStockCardViewProps> = ({
   data,
+  addStock,
   removeStock,
-}: TStockCardViewProps) => {
+}) => {
   const [widget, setWidget] = useState<CardWidget>("QUOTE");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const WidgetComponent = getWidgetComponent(widget, data);
 
   return (
     <Box
+      className={styles.cardContainer}
       m="20px"
       w="350px"
       h="300px"
@@ -141,7 +144,10 @@ export const StockCardView: React.FC<TStockCardViewProps> = ({
           className={styles.trashIcon}
           mt="10px"
           mr="10px"
-          onClick={() => removeStock(data.ticker)}
+          onClick={(e) => {
+            e.stopPropagation();
+            removeStock(data.ticker);
+          }}
         >
           <FontAwesomeIcon icon={faTrash} />
         </Box>
@@ -152,7 +158,12 @@ export const StockCardView: React.FC<TStockCardViewProps> = ({
         <StockCardToggle currentActiveWidget={widget} setWidget={setWidget} />
       </Flex>
 
-      <StockDrawer isOpen={isOpen} onClose={onClose} data={data} />
+      <StockDrawer
+        isOpen={isOpen}
+        onClose={onClose}
+        data={data}
+        addStock={addStock}
+      />
     </Box>
   );
 };

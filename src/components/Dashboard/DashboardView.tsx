@@ -29,6 +29,7 @@ export const DashboardView: React.FC<TDashboardViewProps> = ({
               <StockCardController
                 key={symbol}
                 data={data[symbol]}
+                addStock={addStock}
                 removeStock={removeStock}
               />
             );

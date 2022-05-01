@@ -39,8 +39,6 @@ const getStockData = async (symbol: string) => {
     }
   );
 
-  console.log("response:", response);
-
   const data: TStockData = {
     companyName: response.data.quoteSummary.result[0].price.shortName,
     ticker: response.data.quoteSummary.result[0].price.symbol,
@@ -58,8 +56,9 @@ const getStockData = async (symbol: string) => {
     totalRevenue:
       response.data.quoteSummary.result[0].financialData.totalRevenue.fmt,
     history: transformHistory("AAPL", mockHistory),
+    businessSummary:
+      response.data.quoteSummary.result[0].assetProfile.longBusinessSummary,
     lastRefreshTs: DateTime.now().millisecond,
-    isDisplayed: true,
   };
 
   return data;
@@ -76,20 +75,16 @@ export const DashboardController = () => {
   };
 
   const removeStock = (symbol: string) => {
+    console.log("removing stock", symbol);
     setTickerSymbols((prev) => {
       return prev.filter((s) => s !== symbol);
     });
 
     setStockData((prev) => {
-      const currentValue = prev[symbol];
+      const current = { ...prev };
+      delete current[symbol];
 
-      return {
-        ...prev,
-        [symbol]: {
-          ...currentValue,
-          isDisplayed: false,
-        },
-      };
+      return current;
     });
   };
 

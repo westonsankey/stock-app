@@ -44,7 +44,10 @@ const StockCardToggleButton: React.FC<TStockCardToggleButtonProps> = ({
       w="55px"
       h="22px"
       textAlign="center"
-      onClick={() => setWidget(widget)}
+      onClick={(e) => {
+        e.stopPropagation();
+        setWidget(widget);
+      }}
     >
       <Text mt="1px">{text}</Text>
     </Box>
@@ -131,12 +134,12 @@ export const StockCardView: React.FC<TStockCardViewProps> = ({
       h="300px"
       borderRadius="5px"
       boxShadow="rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;"
+      onClick={(e) => {
+        e.stopPropagation();
+        onOpen();
+      }}
     >
-      <Flex
-        className={styles.cardHeader}
-        justify="space-between"
-        onClick={onOpen}
-      >
+      <Flex className={styles.cardHeader} justify="space-between">
         <Text fontSize="2xl" ml="15px" mt="10px">
           {data.ticker} - {data.companyName}
         </Text>

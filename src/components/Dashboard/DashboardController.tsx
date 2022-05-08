@@ -4,6 +4,7 @@ import { TStockData, TStockHistory, TStockHistoryResponse } from "../StockCard";
 import { DashboardView } from "./DashboardView";
 import axios from "../../common/axios";
 import { DateTime } from "luxon";
+import { RefreshInterval } from "../RefreshButton/RefreshButton";
 
 const timestampToDate = (timestamp: number) => {
   const date = DateTime.fromMillis(timestamp * 1000);
@@ -67,6 +68,7 @@ const getStockData = async (symbol: string) => {
 export const DashboardController = () => {
   const [tickerSymbols, setTickerSymbols] = useState<string[]>(["AAPL"]);
   const [stockData, setStockData] = useState<Record<string, TStockData>>({});
+  const [refreshInterval, setRefreshInterval] = useState<RefreshInterval>();
 
   const addStock = (symbol: string) => {
     setTickerSymbols((prev) => {
@@ -108,6 +110,8 @@ export const DashboardController = () => {
       data={stockData}
       addStock={addStock}
       removeStock={removeStock}
+      refreshInterval={refreshInterval}
+      setRefreshInterval={setRefreshInterval}
     />
   );
 };

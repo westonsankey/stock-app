@@ -11,6 +11,7 @@ type TDashboardViewProps = {
   setRefreshInterval: React.Dispatch<
     React.SetStateAction<RefreshInterval | undefined>
   >;
+  loading: boolean;
 };
 
 export const DashboardView: React.FC<TDashboardViewProps> = ({
@@ -19,6 +20,7 @@ export const DashboardView: React.FC<TDashboardViewProps> = ({
   removeStock,
   refreshInterval,
   setRefreshInterval,
+  loading,
 }: TDashboardViewProps) => {
   return (
     <Box>
@@ -28,20 +30,24 @@ export const DashboardView: React.FC<TDashboardViewProps> = ({
         setRefreshInterval={setRefreshInterval}
       />
 
-      <Flex mt="30px" justifyContent="center">
-        <Flex wrap="wrap" justifyContent="flex-start" w="90%">
-          {Object.keys(data).map((symbol) => {
-            return (
-              <StockCardController
-                key={symbol}
-                data={data[symbol]}
-                addStock={addStock}
-                removeStock={removeStock}
-              />
-            );
-          })}
+      {loading ? (
+        <div>Loading</div>
+      ) : (
+        <Flex mt="30px" justifyContent="center">
+          <Flex wrap="wrap" justifyContent="flex-start" w="90%">
+            {Object.keys(data).map((symbol) => {
+              return (
+                <StockCardController
+                  key={symbol}
+                  data={data[symbol]}
+                  addStock={addStock}
+                  removeStock={removeStock}
+                />
+              );
+            })}
+          </Flex>
         </Flex>
-      </Flex>
+      )}
     </Box>
   );
 };

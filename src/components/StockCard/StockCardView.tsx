@@ -161,6 +161,12 @@ export const StockCardView: React.FC<TStockCardViewProps> = ({
         <StockCardToggle currentActiveWidget={widget} setWidget={setWidget} />
       </Flex>
 
+      <Box ml={3} mt={2}>
+        <Text color="gray" fontSize={12}>
+          Last refreshed at {data.lastRefreshTs}
+        </Text>
+      </Box>
+
       <StockDrawer
         isOpen={isOpen}
         onClose={onClose}

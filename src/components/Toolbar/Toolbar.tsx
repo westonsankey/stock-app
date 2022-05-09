@@ -1,13 +1,15 @@
 import { Box, Flex } from "@chakra-ui/react";
 import { AddStockButton } from "../AddStockButton";
-import { RefreshButton, RefreshInterval } from "../RefreshButton/RefreshButton";
+import {
+  RefreshButton,
+  RefreshInterval,
+  TRefreshInterval,
+} from "../RefreshButton/RefreshButton";
 
 type TToolbarProps = {
   addStock: (symbol: string) => void;
-  refreshInterval: RefreshInterval | undefined;
-  setRefreshInterval: React.Dispatch<
-    React.SetStateAction<RefreshInterval | undefined>
-  >;
+  refreshInterval: TRefreshInterval | undefined;
+  setRefreshInterval: React.Dispatch<React.SetStateAction<TRefreshInterval>>;
 };
 
 export const Toolbar: React.FC<TToolbarProps> = ({

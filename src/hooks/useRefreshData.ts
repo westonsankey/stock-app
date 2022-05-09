@@ -7,8 +7,7 @@ import {
 import { mockHistory } from "../mock/index.mock";
 import { useEffect, useState } from "react";
 import { formatDate, timestampToDate } from "../helpers/date";
-
-const DEFAULT_REFRESH_INTERVAL = 60 * 1000;
+import { TRefreshInterval } from "../components/RefreshButton/RefreshButton";
 
 const transformHistory = (
   symbol: string,
@@ -59,7 +58,10 @@ const getStockData = async (symbol: string) => {
   return data;
 };
 
-export const useRefreshData = (symbols: string[]) => {
+export const useRefreshData = (
+  symbols: string[],
+  refreshInterval: TRefreshInterval
+) => {
   const [data, setData] = useState<TStockData[]>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -76,13 +78,19 @@ export const useRefreshData = (symbols: string[]) => {
       setLoading(false);
     };
 
+    // Initial load
+    setLoading(true);
+    fetch();
+
     const interval = setInterval(() => {
-      setLoading(true);
-      fetch();
-    }, DEFAULT_REFRESH_INTERVAL);
+      if (!loading) {
+        setLoading(true);
+        fetch();
+      }
+    }, refreshInterval.intervalMs);
 
     return () => clearInterval(interval);
-  }, [JSON.stringify(symbols)]);
+  }, [JSON.stringify(symbols), refreshInterval]);
 
   return { data, loading, error };
 };

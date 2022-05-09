@@ -1,17 +1,29 @@
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 
-export enum RefreshInterval {
-  Interval30Seconds = "30 seconds",
-  Interval1Minute = "1 minute",
-  Interval5Minutes = "5 minutes",
-}
+export const RefreshInterval = {
+  INTERVAL_30_SECONDS: {
+    displayName: "30 seconds",
+    intervalMs: 30 * 1000,
+  },
+  INTERVAL_1_MINUTE: {
+    displayName: "1 minute",
+    intervalMs: 60 * 1000,
+  },
+  INTERVAL_5_MINUTES: {
+    displayName: "5 minute",
+    intervalMs: 5 * 60 * 1000,
+  },
+} as const;
+
+export type TRefreshInterval =
+  typeof RefreshInterval[keyof typeof RefreshInterval];
+
+// export type TRefreshInterval = typeof RefreshInterval;
 
 type TRefreshButtonProps = {
-  refreshInterval: RefreshInterval | undefined;
-  setRefreshInterval: React.Dispatch<
-    React.SetStateAction<RefreshInterval | undefined>
-  >;
+  refreshInterval: TRefreshInterval | undefined;
+  setRefreshInterval: React.Dispatch<React.SetStateAction<TRefreshInterval>>;
 };
 
 export const RefreshButton: React.FC<TRefreshButtonProps> = ({
@@ -28,30 +40,30 @@ export const RefreshButton: React.FC<TRefreshButtonProps> = ({
             rightIcon={<ChevronDownIcon />}
           >
             {refreshInterval
-              ? `Refresh: ${refreshInterval}`
+              ? `Refresh: ${refreshInterval.displayName}`
               : "Set Refresh Schedule"}
           </MenuButton>
           <MenuList>
             <MenuItem
               onClick={() =>
-                setRefreshInterval(RefreshInterval.Interval30Seconds)
+                setRefreshInterval(RefreshInterval.INTERVAL_30_SECONDS)
               }
             >
-              {RefreshInterval.Interval30Seconds}
+              {RefreshInterval.INTERVAL_30_SECONDS.displayName}
             </MenuItem>
             <MenuItem
               onClick={() =>
-                setRefreshInterval(RefreshInterval.Interval1Minute)
+                setRefreshInterval(RefreshInterval.INTERVAL_1_MINUTE)
               }
             >
-              {RefreshInterval.Interval1Minute}
+              {RefreshInterval.INTERVAL_1_MINUTE.displayName}
             </MenuItem>
             <MenuItem
               onClick={() =>
-                setRefreshInterval(RefreshInterval.Interval5Minutes)
+                setRefreshInterval(RefreshInterval.INTERVAL_5_MINUTES)
               }
             >
-              {RefreshInterval.Interval5Minutes}
+              {RefreshInterval.INTERVAL_5_MINUTES.displayName}
             </MenuItem>
           </MenuList>
         </>

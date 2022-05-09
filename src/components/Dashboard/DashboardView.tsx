@@ -1,5 +1,5 @@
 import { Box, Flex } from "@chakra-ui/layout";
-import { RefreshInterval } from "../RefreshButton/RefreshButton";
+import { TRefreshInterval } from "../RefreshButton/RefreshButton";
 import { StockCardController, TStockData } from "../StockCard";
 import { Toolbar } from "../Toolbar/Toolbar";
 
@@ -7,10 +7,8 @@ type TDashboardViewProps = {
   data: Record<string, TStockData>;
   addStock: (symbol: string) => void;
   removeStock: (symbol: string) => void;
-  refreshInterval: RefreshInterval | undefined;
-  setRefreshInterval: React.Dispatch<
-    React.SetStateAction<RefreshInterval | undefined>
-  >;
+  refreshInterval: TRefreshInterval | undefined;
+  setRefreshInterval: React.Dispatch<React.SetStateAction<TRefreshInterval>>;
   loading: boolean;
 };
 
